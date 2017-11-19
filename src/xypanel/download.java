@@ -1,5 +1,9 @@
 package xypanel;
-
+/** 
+ * 实现文件下载
+ * @author xue8 
+ * 
+ */  
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,15 +13,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class download {
-	public static void main(String[] args) {
-        try{  
-            downLoadFromUrl("https://www.apachehaus.com/cgi-bin/download.plx?dli=WpmSxU1UNNzTUx2KOV1c5BlVOpkVFVFdkpnSXl1d",  
-                    "apache.zip","D:/XYPanel/");  
-        }catch (Exception e) { 
-            // TODO: handle exception  
-        } 
-	}
-  	  public static void  downLoadFromUrl(String urlStr,String fileName,String savePath) throws IOException{  
+//	public static void main(String[] args) {
+//		download d = new download();
+//        try{  
+//            d.downLoadFromUrl("http://www.wangchongyun.com/Apache2.4.zip",  
+//                    "apache2.4.zip","D:/XYPanel/");  
+//        }catch (Exception e) { 
+//            // TODO: handle exception  
+//        } 
+//	}
+	public void downLoadFromUrl(String urlStr,String fileName,String savePath) throws IOException{  
 	        URL url = new URL(urlStr);    
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 	                //设置超时间为3秒  
@@ -46,7 +51,7 @@ public class download {
 	        }  
 	  
 	  
-	        System.out.println("info:"+url+" download success");   
+	        System.out.println("******************下载完成********************");   
 	  
 	    }  
 	  
@@ -58,7 +63,7 @@ public class download {
 	     * @return 
 	     * @throws IOException 
 	     */  
-	    public static  byte[] readInputStream(InputStream inputStream) throws IOException {    
+	    public byte[] readInputStream(InputStream inputStream) throws IOException {    
 	        byte[] buffer = new byte[1024];    
 	        int len = 0;    
 	        ByteArrayOutputStream bos = new ByteArrayOutputStream();    

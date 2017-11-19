@@ -34,10 +34,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class win {
 
-	private JFrame frame;
+	private JFrame frmXypanel;
 
 	/**
 	 * Launch the application.
@@ -47,7 +51,7 @@ public class win {
 			public void run() {
 				try {
 					win window = new win();
-					window.frame.setVisible(true);
+					window.frmXypanel.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,12 +70,13 @@ public class win {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 580, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmXypanel = new JFrame();
+		frmXypanel.setTitle("XYPanel");
+		frmXypanel.setBounds(100, 100, 580, 450);
+		frmXypanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.SOUTH);
+		frmXypanel.getContentPane().add(panel, BorderLayout.SOUTH);
 		
 		JLabel lblXypanel = new JLabel("XYPanel");
 		panel.add(lblXypanel);
@@ -82,7 +87,7 @@ public class win {
 		tabbedPane.setBackground(new Color(34, 139, 34));
 		tabbedPane.setFont(new Font("宋体", Font.PLAIN, 16));
 		tabbedPane.setToolTipText("");
-		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		frmXypanel.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("\u9996\u9875", null, panel_1, null);
@@ -162,7 +167,7 @@ public class win {
 		panel_12.setBackground(new Color(255, 255, 255));
 		panel_12.setToolTipText("");
 		panel_12.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_12.setBounds(10, 203, 456, 168);
+		panel_12.setBounds(10, 203, 456, 154);
 		panel_1.add(panel_12);
 		panel_12.setLayout(null);
 		
@@ -331,6 +336,27 @@ public class win {
 		panel_19.add(comboBox_2);
 		
 		JButton button_10 = new JButton("\u5B89\u88C5");
+		button_10.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				download d = new download();
+				UnZipFile unzip = new UnZipFile();
+		        try{
+		            d.downLoadFromUrl("http://www.wangchongyun.com/Apache2.4.zip",  
+		                    "apache2.4.zip","D:/XYPanel/");
+		        }catch (Exception c) { 
+		            // TODO: handle exception  
+		        }
+		        try {  
+		        	unzip.unZipFiles(new File("D:/XYPanel/apache2.4.zip"), "D:/XYPanel/");  
+		        } catch (IOException b) {  
+		            b.printStackTrace();  
+		        } 
+		        button_10.setText("已安装");
+		        button_10.setEnabled(false);
+			}
+		});
+
 		button_10.setForeground(Color.WHITE);
 		button_10.setBackground(new Color(34, 139, 34));
 		button_10.setBounds(59, 100, 93, 23);
@@ -359,5 +385,6 @@ public class win {
 		button_11.setBackground(new Color(34, 139, 34));
 		button_11.setBounds(59, 100, 93, 23);
 		panel_20.add(button_11);
+		
 	}
 }
