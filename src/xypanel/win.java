@@ -293,6 +293,30 @@ public class win {
 		button_8.setBounds(59, 100, 93, 23);
 		panel_17.add(button_8);
 		
+		JButton button_23 = new JButton("\u542F\u52A8");
+		button_23.setForeground(Color.WHITE);
+		button_23.setBackground(new Color(34, 139, 34));
+		button_23.setBounds(7, 67, 60, 23);
+		panel_17.add(button_23);
+		
+		JButton button_24 = new JButton("\u505C\u6B62");
+		button_24.setForeground(Color.WHITE);
+		button_24.setBackground(new Color(34, 139, 34));
+		button_24.setBounds(78, 67, 60, 23);
+		panel_17.add(button_24);
+		
+		JButton button_25 = new JButton("\u91CD\u542F");
+		button_25.setForeground(Color.WHITE);
+		button_25.setBackground(new Color(34, 139, 34));
+		button_25.setBounds(148, 67, 60, 23);
+		panel_17.add(button_25);
+		
+		JButton button_26 = new JButton("\u5378\u8F7D");
+		button_26.setForeground(Color.WHITE);
+		button_26.setBackground(new Color(34, 139, 34));
+		button_26.setBounds(148, 100, 60, 23);
+		panel_17.add(button_26);
+		
 		JPanel panel_18 = new JPanel();
 		panel_18.setLayout(null);
 		panel_18.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Mysql", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -317,6 +341,30 @@ public class win {
 		button_9.setBounds(59, 100, 93, 23);
 		panel_18.add(button_9);
 		
+		JButton button_19 = new JButton("\u542F\u52A8");
+		button_19.setForeground(Color.WHITE);
+		button_19.setBackground(new Color(34, 139, 34));
+		button_19.setBounds(10, 67, 60, 23);
+		panel_18.add(button_19);
+		
+		JButton button_20 = new JButton("\u505C\u6B62");
+		button_20.setForeground(Color.WHITE);
+		button_20.setBackground(new Color(34, 139, 34));
+		button_20.setBounds(81, 67, 60, 23);
+		panel_18.add(button_20);
+		
+		JButton button_21 = new JButton("\u91CD\u542F");
+		button_21.setForeground(Color.WHITE);
+		button_21.setBackground(new Color(34, 139, 34));
+		button_21.setBounds(151, 67, 60, 23);
+		panel_18.add(button_21);
+		
+		JButton button_22 = new JButton("\u5378\u8F7D");
+		button_22.setForeground(Color.WHITE);
+		button_22.setBackground(new Color(34, 139, 34));
+		button_22.setBounds(151, 100, 60, 23);
+		panel_18.add(button_22);
+		
 		JPanel panel_19 = new JPanel();
 		panel_19.setLayout(null);
 		panel_19.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Apache", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -335,10 +383,40 @@ public class win {
 		comboBox_2.setBounds(84, 29, 102, 21);
 		panel_19.add(comboBox_2);
 		
+		JButton btnNewButton_1 = new JButton("\u542F\u52A8");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Cmd.bat("bat/startApache.bat");  //调用bat启动apache
+			}
+		});
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setBackground(new Color(34, 139, 34));
+		btnNewButton_1.setBounds(10, 67, 60, 23);
+		panel_19.add(btnNewButton_1);
+		
+		JButton button_12 = new JButton("\u505C\u6B62");
+		button_12.setBackground(new Color(34, 139, 34));
+		button_12.setForeground(new Color(255, 255, 255));
+		button_12.setBounds(81, 67, 60, 23);
+		panel_19.add(button_12);
+		
+		JButton button_13 = new JButton("\u91CD\u542F");
+		button_13.setForeground(new Color(255, 255, 255));
+		button_13.setBackground(new Color(34, 139, 34));
+		button_13.setBounds(151, 67, 60, 23);
+		panel_19.add(button_13);
+		
+		JButton button_14 = new JButton("\u5378\u8F7D");
+		button_14.setBackground(new Color(34, 139, 34));
+		button_14.setForeground(new Color(255, 255, 255));
+		button_14.setBounds(151, 100, 60, 23);
+		panel_19.add(button_14);
+		
 		JButton button_10 = new JButton("\u5B89\u88C5");
 		button_10.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {   //安装apache
 				download d = new download();
 				UnZipFile unzip = new UnZipFile();
 		        try{
@@ -351,9 +429,19 @@ public class win {
 		        	unzip.unZipFiles(new File("D:/XYPanel/apache2.4.zip"), "D:/XYPanel/");  
 		        } catch (IOException b) {  
 		            b.printStackTrace();  
-		        } 
+		        }
+		        String file = "D:/XYPanel/apache2.4/conf/httpd.conf";
+		        String reg = "(.*)/Apache24(.*)";
+		        String content = "Define SRVROOT \"D:/XYPanel/Apache2.4/\"";
+		        FileOperation.replaceApache(file,reg,content); //apache的conf文本里面的路径替换
+		        Cmd.bat("bat/installApache.bat"); //调用bat安装apache
+		        //Cmd.bat("G:/java/java-panel/bat/startApache.bat");  //调用bat启动apache
 		        button_10.setText("已安装");
-		        button_10.setEnabled(false);
+		        button_10.setVisible(true);
+		        btnNewButton_1.setVisible(true);
+		        button_12.setVisible(true);
+		        button_13.setVisible(true);
+		        button_14.setVisible(true);
 			}
 		});
 
@@ -375,16 +463,59 @@ public class win {
 		panel_20.add(lblPhp);
 		
 		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"5.4\u7248\u672C"}));
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"7.1\u7248\u672C"}));
 		comboBox_3.setBackground(Color.WHITE);
 		comboBox_3.setBounds(84, 29, 102, 21);
 		panel_20.add(comboBox_3);
 		
 		JButton button_11 = new JButton("\u5B89\u88C5");
+		button_11.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {  //安装php
+				download down = new download();
+				UnZipFile unzip = new UnZipFile();
+		        try{
+		        	down.downLoadFromUrl("http://www.wangchongyun.com/php7.1.zip",  
+		                    "php7.1.zip","D:/XYPanel/");
+		        }catch (Exception c) { 
+		            // TODO: handle exception  
+		        }
+		        try {  
+		        	unzip.unZipFiles(new File("D:/XYPanel/php7.1.zip"), "D:/XYPanel/");  
+		        } catch (IOException b) {  
+		            b.printStackTrace();  
+		        }
+		        //FileOperation.replaceApache(file, reg, content);
+			}
+		});
 		button_11.setForeground(Color.WHITE);
 		button_11.setBackground(new Color(34, 139, 34));
 		button_11.setBounds(59, 100, 93, 23);
 		panel_20.add(button_11);
+		
+		JButton button_15 = new JButton("\u542F\u52A8");
+		button_15.setForeground(Color.WHITE);
+		button_15.setBackground(new Color(34, 139, 34));
+		button_15.setBounds(10, 67, 60, 23);
+		panel_20.add(button_15);
+		
+		JButton button_16 = new JButton("\u505C\u6B62");
+		button_16.setForeground(Color.WHITE);
+		button_16.setBackground(new Color(34, 139, 34));
+		button_16.setBounds(81, 67, 60, 23);
+		panel_20.add(button_16);
+		
+		JButton button_17 = new JButton("\u91CD\u542F");
+		button_17.setForeground(Color.WHITE);
+		button_17.setBackground(new Color(34, 139, 34));
+		button_17.setBounds(151, 67, 60, 23);
+		panel_20.add(button_17);
+		
+		JButton button_18 = new JButton("\u5378\u8F7D");
+		button_18.setForeground(Color.WHITE);
+		button_18.setBackground(new Color(34, 139, 34));
+		button_18.setBounds(151, 100, 60, 23);
+		panel_20.add(button_18);
 		
 	}
 }
